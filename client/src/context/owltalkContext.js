@@ -65,7 +65,7 @@ export const OwltalkState = props => {
    const createAccount = async (data) => {
       let {email, name, password} = data
       
-      axios.post("http://localhost:5000/api/users", {
+      axios.post("api/users", {
          email,
          name,
          password
@@ -98,7 +98,7 @@ export const OwltalkState = props => {
    const login = async (data) => {
       let {email, password} = data
       
-      axios.post("http://localhost:5000/api/auth", {
+      axios.post("api/auth", {
          email,
          password
       }).then(res => {

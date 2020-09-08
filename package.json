@@ -29,6 +29,6 @@
     "concurrently": "^5.2.0"
   },
   "engines": {
-    "node": "12.16.2"
+    "node": "12.x"
   }
 }

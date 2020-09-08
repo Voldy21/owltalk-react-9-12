@@ -16,7 +16,7 @@ const Home = () => {
    const [update, setUpdate] = useState(false)
    
    useEffect(() => {
-         axios.get("http://localhost:5000/api/posts")
+         axios.get("api/posts")
             .then(res => setPosts(res.data))
    }, [update])
 
@@ -26,7 +26,7 @@ const Home = () => {
       let token = cookies.get('token')
       await axios({
          method: "post",
-         url: "http://localhost:5000/api/posts",
+         url: "api/posts",
          data: {
             title,
             text

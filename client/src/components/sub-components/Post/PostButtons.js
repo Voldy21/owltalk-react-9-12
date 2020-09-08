@@ -13,7 +13,7 @@ const PostButtons = ({id, likes}) => {
             headers: {
                "x-auth-token": token
             },
-            url: `http://localhost:5000/api/posts/like/${id}`
+            url: `posts/like/${id}`
          }).then(res=> setPostLikes(res.data.length))
            .catch(error => console.log(error.message))
       
@@ -27,7 +27,7 @@ const PostButtons = ({id, likes}) => {
             headers: {
                "x-auth-token": token
             },
-            url: `http://localhost:5000/api/posts/like/${id}`
+            url: `api/posts/like/${id}`
          }).then(res => setPostLikes(res.data.length))
             .catch(error => console.log(error.message))
 
