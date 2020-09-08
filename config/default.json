@@ -1,0 +1,6 @@
+{
+    "mongoURI": "mongodb+srv://Voldy21:Jdtgr9704@cluster0-8uwri.mongodb.net/<dbname>?retryWrites=true&w=majority",
+    "jwtToken": "mySecretToken",
+    "githubClientId": "b396638cdd6087380dfb",
+    "githubSecret": "f2d1317f1d3fc2ab0c8062a4b15391e4bddb4a4a"
+}

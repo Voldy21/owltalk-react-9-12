@@ -1,0 +1,90 @@
+/* 
+
+Colors
+
+Background:
+0B0C10
+Secondary Background:
+1F2833
+Gray
+C5C6C7
+Primary:
+66FCF1
+Secondary:
+45A29
+
+*/
+
+body{
+	background-color: #C5C6C7;
+	font-family: 'Montserrat', sans-serif;
+	color: #0B0C10;
+}
+
+h1,h2,h3,h4,h5{
+	font-weight: 700;
+}
+
+a{
+	color: #66FCF1;
+}
+/*Button colors*/
+.button-style{
+	background-color:  #1F2833 !important;
+	color: #66FCF1 !important;
+}
+/*Block Buttons sharing*/
+/*Block like buttons*/
+div.user-likes{
+	text-align: right !important;
+	padding-right: 20px;
+	padding-bottom: 20px;
+}
+.form-group{
+	align-items: center !important;
+}
+/* Header */
+
+nav.navbar{
+	background-color: #1F2833 !important;
+	color: #66FCF1 !important;
+}
+
+nav.navbar-brand{
+	font-weight: 700;
+	font-size: 1.5rem;
+}
+
+/* Styles for wrapping the search box */
+
+.main {
+    width: 80%;
+    margin: 50px auto;
+}
+
+/* Bootstrap 4 text input with search icon */
+
+.has-search .form-control {
+    padding-left: 2.375rem;
+}
+
+.has-search .form-control-feedback {
+    position: absolute;
+    z-index: 2;
+    display: block;
+    width: 2.375rem;
+    height: 2.375rem;
+    line-height: 2.375rem;
+    text-align: center;
+    pointer-events: none;
+    color: #aaa;
+}
+
+
+
+@media (max-width: 700px){
+	.main{
+		width: 100%;
+	}
+}
+
