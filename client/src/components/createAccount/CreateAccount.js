@@ -1,6 +1,6 @@
 import React, { useState, useContext } from 'react';
-import Header from './sub-components/Login/Header'
-import {OwltalkContext} from '../context/owltalkContext'
+import Header from '../Login/Login/Header'
+import {OwltalkContext} from '../../context/owltalkContext'
 
 const CreateAccount = () => {
    const owltalkContext = useContext(OwltalkContext)

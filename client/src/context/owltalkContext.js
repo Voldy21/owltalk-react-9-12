@@ -1,49 +1,9 @@
 import React, {createContext, useReducer} from 'react'
 import axios from 'axios'
 import Cookies from 'universal-cookie'
-
+import OwltalkReducer from './owltalkReducer'
 
 export const OwltalkContext = createContext()
-
-const OwltalkReducer = (state, action) => {
-   switch (action.type) {
-      case "CREATE_ACCOUNT":
-         return {
-            ...state,
-            isLoggedIn: true,
-            loading: false
-         }
-      case "LOGIN":
-         return {
-            ...state,
-            isLoggedIn: true,
-            loading: false
-         }
-      case "SET_ALERT":
-         return {
-            ...state,
-            alert: {
-               type: action.payload.type, 
-               text: action.payload.text
-            }
-         }
-      case "REMOVE_ALERT":
-         return {
-            ...state,
-            alert: {
-               type: "",
-               text: ""
-            }
-         }
-      case "LOGOUT" : 
-         return {
-            ...state,
-            isLoggedIn: false
-         }
-      default: 
-         return state
-   }
-}
 
 export const OwltalkState = props => {
    const cookies = new Cookies()
@@ -51,6 +11,8 @@ export const OwltalkState = props => {
    let initialState = {
       user: {},
       users: [],
+      posts: [],
+      id: "",
       alert: {type: "", text: ""},
       loading: false,
       isLoggedIn: false,
@@ -60,7 +22,7 @@ export const OwltalkState = props => {
    }
 
    const [state, dispatch] = useReducer(OwltalkReducer, initialState)
-   
+
    //Create Account
    const createAccount = async (data) => {
       let {email, name, password} = data
@@ -104,7 +66,7 @@ export const OwltalkState = props => {
       }).then(res => {
          cookies.set('token', res.data.token, { 
             path: '/',
-            maxAge: 3600
+            maxAge: 360000
          })
    
          dispatch({
@@ -144,7 +106,7 @@ export const OwltalkState = props => {
             test: state.test,
             createAccount,
             login,
-            logout
+            logout,
          }}
          >
             {props.children}
