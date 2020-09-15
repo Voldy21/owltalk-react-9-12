@@ -1,4 +1,4 @@
-import React, { useState ,useContext } from 'react';
+import React, { useState ,useContext, useEffect } from 'react';
 import {OwltalkContext} from '../../context/owltalkContext'
 import { Navbar as Navbar2, 
          Nav, 
@@ -9,14 +9,28 @@ import { Navbar as Navbar2,
          NavLink,
          Container,
 } from 'reactstrap'
+import axios from 'axios'
+import Cookies from 'universal-cookie'
 
 
 const Navbar = () => {
+   const [id, setId] = useState("")
    const owltalkContext = useContext(OwltalkContext)
    const {isLoggedIn, logout} = owltalkContext;
    const [isOpen, setIsOpen] = useState(false);
    const toggle = () => setIsOpen(!isOpen);
 
+   useEffect(() => {
+      const cookies = new Cookies()
+      let token = cookies.get("token")
+
+      axios({
+         url: "http://localhost:5000/api/users",
+         method: "get",
+         headers : {
+            "x-auth-token": token
+         }}).then(res => setId(res.data.id))
+   }, [id])
    function help(){
       alert('Welcome to Cheese! The site to help people connect during COVID. Create a User profile by selecting the user icon in the top left. To post a block click on the new block button. The main page displays recent and popular blocks from other students. The navigation bar links will help you navigate through different categories on the site. Thank you for becoming apart of the cheese family!')
    }
@@ -26,16 +40,21 @@ const Navbar = () => {
       <Navbar2 color="dark" expand="md">
 			<Container>
             {/* <!-- Login Button --> */}
-            {isLoggedIn ? (
+            {isLoggedIn && id.length > 0 ? (
                <>
                   <button 
                      className="mr-3 button-style btn btn-info btn-sm" 
                      onClick={() => logout()}>logout</button>
                   {/* <!-- User Icon --> */}
-                  <NavbarBrand href="profile?id=68464">
+                  <NavbarBrand href={`/profile/${id}`}>
                   <i className="fa fa-user-circle-o" aria-hidden="true"></i>
                   </NavbarBrand>
                </>
+            ) : isLoggedIn ? (
+               <button 
+                     className="mr-3 button-style btn btn-info btn-sm" 
+                     onClick={() => logout()}>logout</button>
+               
             ) : (
                <NavbarBrand className="button-style btn btn-info btn-sm" href="login" role="button">login</NavbarBrand>
             )}

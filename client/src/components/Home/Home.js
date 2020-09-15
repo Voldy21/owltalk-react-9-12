@@ -10,16 +10,23 @@ import PostModal from './PostModal'
 
 const Home = () => {
    const owltalkContext = useContext(OwltalkContext)
-   const {isLoggedIn} = owltalkContext
+   const {isLoggedIn, setAlert} = owltalkContext
    const [posts, setPosts] = useState([])
    const [update, setUpdate] = useState(false)
    const [title, setTitle] = useState("")
    const [text, setText] = useState("")
    
    useEffect(() => {
+      // eslint-disable-next-line react-hooks/exhaustive-deps
          axios.get("api/posts")
             .then(res => setPosts(res.data))
-   }, [update])
+            .catch(error => {
+               if(error.response){
+                  setAlert(error.response.data, "danger")
+               }
+            })
+   }, [update, setAlert])
+   
 
    const onSubmit = async (e) => {
       e.preventDefault()

@@ -10,7 +10,7 @@ const PostModal = (props) => {
 
    return (
       <div>
-      <Button color="primary" onClick={toggle}>{buttonLabel}</Button>
+      <Button className="mt-2 button-style" onClick={toggle}>{buttonLabel}</Button>
       <Collapse isOpen={isOpen}>
         <Form onSubmit={onSubmit}>
          <FormGroup className="mb-2 mr-sm-2 mb-sm-0">

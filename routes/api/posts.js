@@ -40,7 +40,7 @@ router.post(
             }
             let newPost = new Post(newPostFields);
 
-            let post = await newPost.save();
+            await newPost.save();
             
             res.json({newPost});
         } catch (err) {
@@ -294,5 +294,18 @@ router.delete('/comment/:id/:comment_id', auth, async (req,res) => {
         res.status(500).send("Server Error");
     }
 })
+
+router.get("/user/:user_id", async (req,res) => {
+    try {
+        let id = req.params.user_id
+        let posts = await Post.find({user: id})
+        console.log(posts)
+        res.json(posts)
+    } catch (error) {
+        res.status(404).send("Something fucked up")
+    }
+})
+
+
 
 module.exports = router;

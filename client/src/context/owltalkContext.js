@@ -17,17 +17,32 @@ export const OwltalkState = props => {
       loading: false,
       isLoggedIn: false,
    }
+
    if(cookies.get("token")){
       initialState.isLoggedIn = true
    }
 
+
    const [state, dispatch] = useReducer(OwltalkReducer, initialState)
+
+   //Alert handler
+   const setAlert = (text, type) => {
+      dispatch({
+         type: "SET_ALERT",
+         payload: {text, type}
+      }
+   )
+   setTimeout(() => {
+      dispatch({
+         type: "REMOVE_ALERT",
+      })
+   }, 3000)}
 
    //Create Account
    const createAccount = async (data) => {
       let {email, name, password} = data
       
-      axios.post("api/users", {
+      axios.post("http://localhost:5000/api/users", {
          email,
          name,
          password
@@ -39,28 +54,14 @@ export const OwltalkState = props => {
          dispatch({
             type: "CREATE_ACCOUNT"
          })
-         dispatch({
-            type: "SET_ALERT",
-            payload: {text: "Account Created!", type: "success"}
-         })
-
-         setTimeout(() => {
-            dispatch({
-               type: "REMOVE_ALERT",
-            })
-         }, 3000);
-      }).catch(() => {
-         dispatch({
-         type: "SET_ALERT",
-         payload: {text: "Could not create account", type: "danger"}
-      })
-   })
+         setAlert("Account Created!", "success")
+      }).catch(() => setAlert("Could not create account", "danger"))
    }
    //Login
    const login = async (data) => {
       let {email, password} = data
       
-      axios.post("api/auth", {
+      axios.post("http://localhost:5000/api/auth", {
          email,
          password
       }).then(res => {
@@ -68,33 +69,20 @@ export const OwltalkState = props => {
             path: '/',
             maxAge: 360000
          })
-   
          dispatch({
             type: "LOGIN"
          })
-         dispatch({
-            type: "SET_ALERT",
-            payload: {text: "Logged in!", type: "success"}
-         })
-
-         setTimeout(() => {
-            dispatch({
-               type: "REMOVE_ALERT",
-            })
-         }, 3000);
-
-      }).catch(() => {
-         dispatch({
-         type: "SET_ALERT",
-         payload: {text: "Could not log in", type: "danger"}
-      })
-   })
+         setAlert("Logged in!", "success")
+      }).catch(() => setAlert("Could not log in", "danger"))
    }
+
    //Logout
    const logout = () => {
       cookies.remove('token')
       dispatch({type: "LOGOUT"})
    }
+
+   
 
    return (
       <OwltalkContext.Provider
@@ -104,9 +92,11 @@ export const OwltalkState = props => {
             posts: state.posts,
             alert: state.alert,
             test: state.test,
+            id: state.id,
             createAccount,
             login,
             logout,
+            setAlert
          }}
          >
             {props.children}

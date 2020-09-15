@@ -4,7 +4,6 @@ import {OwltalkContext} from '../../context/owltalkContext'
 
 const Login = () => {
    const owltalkContext = useContext(OwltalkContext)
-   const {alert} = owltalkContext
    const [email, setEmail] = useState("")
    const [password, setPassword] = useState("")
 
@@ -15,11 +14,6 @@ const Login = () => {
 
    return (
       <div>
-         {alert != null && alert.text.length > 0 && 
-         <div className={`alert alert-${alert.type} text-center`}>
-            {alert.text}
-         </div>
-         }
          <Header text="Log in to your OwlTalk Account"/>
       
          {/* <!-- User Form --> */}

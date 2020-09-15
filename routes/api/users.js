@@ -6,9 +6,17 @@ const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
 const config = require("config");
 const normalize = require("normalize-url")
+const auth = require("../../middleware/auth")
 
 //Bring in the User schema
 const User = require("../../models/User");
+
+// @route    POST api/users
+// @desc     Create a new user
+// @access   Public
+router.get('/', auth, (req,res) => {
+    res.status(200).json({id: req.user.id})
+})
 
 // @route    POST api/users
 // @desc     Create a new user

@@ -9,9 +9,10 @@ const ProfileSchema = new mongoose.Schema({
         type: String
     },
     hobbies: [{type: String}],
+    major: String,
     location: {
         type: String
-    }
+    },
 });
 
 module.exports = Profile = mongoose.model('profile', ProfileSchema);
