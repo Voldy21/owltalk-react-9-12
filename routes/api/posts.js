@@ -167,7 +167,15 @@ router.put('/like/:post_id', auth, async (req,res) => {
         //Check if the post has already been liked
 
         if(post.likes.filter(like => like.user.toString() === req.user.id).length > 0){
-            return res.status(400).json({msg: "Post already liked"});
+            const removeIndex = post.likes
+             .map(like => like.user.toString())
+             .indexOf(req.user.id);
+
+            post.likes.splice(removeIndex, 1);
+
+            await post.save();
+
+            return res.json(post.likes);
         }
 
         post.likes.unshift({user: req.user.id});
@@ -206,7 +214,7 @@ router.delete('/like/:post_id', auth, async (req,res) => {
 
         await post.save();
 
-        res.json(post);
+        res.json(post.likes);
     } catch (err) {
         if(err.kind === 'ObjectId'){
             return res.status(404).json({msg: "Post not found"});

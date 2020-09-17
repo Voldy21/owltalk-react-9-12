@@ -24,12 +24,6 @@ const CreateAccount = () => {
       
    return (
       <>
-         {
-            alert !== null && alert.text.length > 0 && 
-            <div className={`alert alert-${alert.type} text-center`}>
-               {alert.text}
-            </div>
-         }
          <Header text="Create your OwlTalk Account"/>
          <form onSubmit={onSubmit}>
             <div className="container" style={{paddingTop: "50px"}}>

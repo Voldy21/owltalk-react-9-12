@@ -41,6 +41,7 @@ export const OwltalkState = props => {
    //Create Account
    const createAccount = async (data) => {
       let {email, name, password} = data
+      email = email.toLowerCase()
       
       axios.post("http://localhost:5000/api/users", {
          email,
@@ -60,6 +61,7 @@ export const OwltalkState = props => {
    //Login
    const login = async (data) => {
       let {email, password} = data
+      email = email.toLowerCase()
       
       axios.post("http://localhost:5000/api/auth", {
          email,
@@ -73,7 +75,12 @@ export const OwltalkState = props => {
             type: "LOGIN"
          })
          setAlert("Logged in!", "success")
-      }).catch(() => setAlert("Could not log in", "danger"))
+      }).catch((err) => {
+         if(err.response){
+            setAlert(err.response.data.errors[0].msg, "danger")
+         }
+         
+      })
    }
 
    //Logout
